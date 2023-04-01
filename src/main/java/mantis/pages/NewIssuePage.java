@@ -1,29 +1,25 @@
 package mantis.pages;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage {
+public class NewIssuePage {
     private final WebDriver driver;
     private final WebDriverWait wait;
+    private MantisSite mantisSite;
 
-    @FindBy(css = "#username")
-    private WebElement loginField;
+    @FindBy(css = "a[href='/mantisbt/bug_report_page.php']")
+    private WebElement newIssuePageButton;
 
-    public LoginPage(WebDriver driver) {
+    public NewIssuePage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 30, 500);
         PageFactory.initElements(driver, this);
     }
-
-    public void login(String login) {
-        driver.get("https://academ-it.ru/mantisbt/bug_report_page.php");
-
-        loginField.sendKeys(login);
-        loginField.sendKeys(Keys.ENTER);
+    public void goToNewIssuesPage() {
+        newIssuePageButton.click();
     }
 }

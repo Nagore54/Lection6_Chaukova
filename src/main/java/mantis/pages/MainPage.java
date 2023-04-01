@@ -16,6 +16,9 @@ public class MainPage {
     @FindBy(css = "a[href='/mantisbt/view_all_bug_page.php']")
     private WebElement viewIssuesPageButton;
 
+    @FindBy(xpath = "//*[@id='sidebar']/ul/li[3]/a")
+    private WebElement newIssuePageButton;
+
     public MainPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 30, 500);
@@ -26,7 +29,8 @@ public class MainPage {
         return userName.getText();
     }
 
-    public void goToViewIssuesPage() {
-        viewIssuesPageButton.click();
-    }
+    public void goToViewIssuesPage() {viewIssuesPageButton.click();}
+
+    public void goToNewIssuesPage() {newIssuePageButton.click();}
+
 }
