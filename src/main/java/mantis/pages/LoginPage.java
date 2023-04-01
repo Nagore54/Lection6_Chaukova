@@ -21,7 +21,7 @@ public class LoginPage {
     }
 
     public void login(String login) {
-        driver.get("https://academ-it.ru/mantisbt/bug_report_page.php");
+        driver.get("https://academ-it.ru/mantisbt/login_page.php");
 
         loginField.sendKeys(login);
         loginField.sendKeys(Keys.ENTER);

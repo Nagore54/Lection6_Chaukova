@@ -16,7 +16,7 @@ public class MainPage {
     @FindBy(css = "a[href='/mantisbt/view_all_bug_page.php']")
     private WebElement viewIssuesPageButton;
 
-    @FindBy(xpath = "//*[@id='sidebar']/ul/li[3]/a")
+    @FindBy(xpath = "a[href='/mantisbt/bug_report_page.php']")
     private WebElement newIssuePageButton;
 
     public MainPage(WebDriver driver) {
