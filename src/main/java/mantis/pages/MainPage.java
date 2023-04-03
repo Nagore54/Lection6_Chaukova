@@ -29,8 +29,12 @@ public class MainPage {
         return userName.getText();
     }
 
-    public void goToViewIssuesPage() {viewIssuesPageButton.click();}
+    public void goToViewIssuesPage() {
+        viewIssuesPageButton.click();
+    }
 
-    public void goToNewIssuesPage() {newIssuePageButton.click();}
+    public void goToNewIssuesPage() {
+        newIssuePageButton.click();
+    }
 
 }

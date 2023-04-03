@@ -13,7 +13,6 @@ public class IssueTest extends BaseTest {
     @Test
     public void newIssue() throws InterruptedException {
         String summary = "Summary Summary";
-        String description = "Description Description";
 
         mantisSite = new MantisSite(driver);
         mantisSite.login("admin", "admin20");
@@ -22,25 +21,19 @@ public class IssueTest extends BaseTest {
 
         Assertions.assertTrue(driver.findElement(By.xpath("//*[@class='table-responsive']/table/tbody/tr[7]/th/label")).isDisplayed());
         Assertions.assertTrue(driver.findElement(By.xpath("//*[@class='table-responsive']/table/tbody/tr[8]/th/label")).isDisplayed());
-        driver.findElement(By.xpath("//*[@class='table-responsive']/table/tbody/tr[7]/th/label")).click();
-        driver.findElement(By.xpath("//*[@id='summary']")).sendKeys(summary);
 
-        driver.findElement(By.xpath("//*[@class='table-responsive']/table/tbody/tr[8]/th/label")).click();
-        driver.findElement(By.xpath("//*[@id='description']")).sendKeys(description);
+        mantisSite.getNewIssuesPage().createIssueField();
 
         WebElement selectAll = driver.findElement(By.xpath("//*[@type='submit']"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", selectAll);
         Assertions.assertTrue(driver.findElement(By.xpath("//*[@type='submit']")).isDisplayed());
-        driver.findElement(By.xpath("//*[@type='submit']")).click();
+
+        mantisSite.getNewIssuesPage().clickSubmit();
 
         Thread.sleep(5000);
-
         Assertions.assertTrue(driver.findElement(By.xpath("//*[@id='buglist']/tbody/tr[1]/td[11]")).getText().contains(summary));
-        driver.findElement(By.xpath("//*[@id='buglist']/tbody/tr[1]/td[4]/a")).click();
-        driver.findElement(By.xpath("//*[@value='Delete']")).click();
 
-        driver.findElement(By.xpath("//*[@value='Delete Issues']")).click();
-
+        mantisSite.getNewIssuesPage().deleteIssue();
         Assertions.assertFalse(driver.findElement(By.xpath("//*[@id='buglist']/tbody/tr[1]/td[11]")).getText().contains(summary));
     }
 

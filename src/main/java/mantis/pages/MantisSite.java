@@ -35,5 +35,7 @@ public class MantisSite {
         return mainPage;
     }
 
-    public NewIssuePage getNewIssuesPage() {return newIssuesPage;}
+    public NewIssuePage getNewIssuesPage() {
+        return newIssuesPage;
+    }
 }
