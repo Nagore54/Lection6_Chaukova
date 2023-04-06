@@ -4,33 +4,29 @@ import mantis.pages.MantisSite;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.util.concurrent.TimeUnit;
 
 public class IssueTest extends BaseTest {
     private MantisSite mantisSite;
 
     @Test
     public void newIssue() throws InterruptedException {
-        String summary = "Summary Summary";
+        String summary = "Chayukova Summary";
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         mantisSite = new MantisSite(driver);
         mantisSite.login("admin", "admin20");
 
+        Assertions.assertTrue(driver.findElement(By.cssSelector("a[href='/mantisbt/bug_report_page.php']")).isDisplayed());
         mantisSite.getMainPage().goToNewIssuesPage();
 
-        Assertions.assertTrue(driver.findElement(By.xpath("//*[@class='table-responsive']/table/tbody/tr[7]/th/label")).isDisplayed());
-        Assertions.assertTrue(driver.findElement(By.xpath("//*[@class='table-responsive']/table/tbody/tr[8]/th/label")).isDisplayed());
-
-        mantisSite.getNewIssuesPage().createIssueField();
-
-        WebElement selectAll = driver.findElement(By.xpath("//*[@type='submit']"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", selectAll);
+        mantisSite.getNewIssuesPage().createIssue();
         Assertions.assertTrue(driver.findElement(By.xpath("//*[@type='submit']")).isDisplayed());
 
         mantisSite.getNewIssuesPage().clickSubmit();
 
-        Thread.sleep(5000);
+        WebDriverWait waitForm = new WebDriverWait(driver, 10, 0);
         Assertions.assertTrue(driver.findElement(By.xpath("//*[@id='buglist']/tbody/tr[1]/td[11]")).getText().contains(summary));
 
         mantisSite.getNewIssuesPage().deleteIssue();

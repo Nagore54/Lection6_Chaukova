@@ -1,5 +1,7 @@
 package mantis.pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,13 +24,13 @@ public class NewIssuePage {
     @FindBy(xpath = "//*[@id='buglist']/tbody/tr[1]/td[4]/a")
     private WebElement openIssue;
     @FindBy(xpath = "//*[@value='Delete']")
-    private WebElement clickDelete;
+    private WebElement buttonDelete;
     @FindBy(xpath = "//*[@value='Delete Issues']")
-    private WebElement clickDeleteIssues;
+    private WebElement buttonDeleteIssues;
 
 
-    String summary = "Summary Summary";
-    String description = "Description Description";
+    String summary = "Chayukova Summary";
+    String description = "Chayukova Description";
 
     public NewIssuePage(WebDriver driver) {
         this.driver = driver;
@@ -40,19 +42,20 @@ public class NewIssuePage {
         newIssuePageButton.click();
     }
 
-    public void createIssueField() {
+    public void createIssue() {
         summaryField.sendKeys(summary);
         descriptionField.sendKeys(description);
+        WebElement selectAll = driver.findElement(By.xpath("//*[@type='submit']"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", selectAll);
     }
 
     public void clickSubmit() {
         submitButton.click();
     }
 
-
     public void deleteIssue() {
         openIssue.click();
-        clickDelete.click();
-        clickDeleteIssues.click();
+        buttonDelete.click();
+        buttonDeleteIssues.click();
     }
 }
